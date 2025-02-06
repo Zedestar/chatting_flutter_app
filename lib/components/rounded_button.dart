@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton(
+class RoundedButton extends StatelessWidget {
+  const RoundedButton(
       {super.key,
       required this.onPress,
       required this.buttonText,

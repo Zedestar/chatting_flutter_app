@@ -1,4 +1,4 @@
-import 'package:chatting_app/components/button.dart';
+import 'package:chatting_app/components/rounded_button.dart';
 import 'package:chatting_app/screens/login_screen.dart';
 import 'package:chatting_app/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 // color: Colors.black,
                 DefaultTextStyle(
                   style: const TextStyle(
-                    fontSize: 32.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -104,14 +104,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            CustomButton(
+            RoundedButton(
               onPress: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
               buttonText: "Login",
               buttonColor: Colors.lightBlueAccent,
             ),
-            CustomButton(
+            RoundedButton(
               onPress: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },
