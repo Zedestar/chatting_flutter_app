@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839283635148",
+    "project_id": "chatting-app-flutter-be3fd",
+    "storage_bucket": "chatting-app-flutter-be3fd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839283635148:android:93172e509f9c0051782369",
+        "android_client_info": {
+          "package_name": "com.zedecky.chatting_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC55A4SCvBNqUuLwuTvf7jfkrfQ4-a5Lv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

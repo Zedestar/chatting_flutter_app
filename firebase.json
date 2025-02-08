@@ -1,6 +1,1 @@
-{
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  }
-}
+{"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"},"flutter":{"platforms":{"android":{"default":{"projectId":"chatting-app-flutter-be3fd","appId":"1:839283635148:android:93172e509f9c0051782369","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"chatting-app-flutter-be3fd","configurations":{"android":"1:839283635148:android:93172e509f9c0051782369","ios":"1:839283635148:ios:149d51aa73703f9a782369","macos":"1:839283635148:ios:149d51aa73703f9a782369","web":"1:839283635148:web:303046fd02c66c0a782369","windows":"1:839283635148:web:3a07015afa892f7a782369"}}}}}}
