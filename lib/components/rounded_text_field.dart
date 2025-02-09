@@ -18,7 +18,7 @@ class RoundedTextField extends StatelessWidget {
     return TextField(
       keyboardType: keyboardInputType,
       obscureText: obscuringText,
-      maxLength: 200,
+      // maxLength: 200,
       maxLines: 1,
       textAlign: TextAlign.center,
       onChanged: onChange,
