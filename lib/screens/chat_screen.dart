@@ -86,14 +86,27 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection("messages").snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasError) {
-                  return Text("There is no any data");
-                }
-                final  messages = snapshot.data.docs;
-              }
-            ),
+                stream: _firestore.collection("messages").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("There is an error occured");
+                  }
+                  if (!snapshot.hasData) {
+                    return Text("There is no data available");
+                  }
+                  final messages = snapshot.data!.docs;
+                  List<Text> messagesWidget = [];
+                  for (var message in messages) {
+                    final messageData = message.data() as Map<String, dynamic>;
+                    final String sender = messageData['sender'];
+                    final String content = messageData['content'];
+                    final Text messageContent = Text('$content from $sender');
+                    messagesWidget.add(messageContent);
+                  }
+                  return Column(
+                    children: messagesWidget,
+                  );
+                }),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
