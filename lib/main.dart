@@ -3,8 +3,15 @@ import 'package:chatting_app/screens/login_screen.dart';
 import 'package:chatting_app/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chatting_app/screens/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(FlashChat());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(
+    FlashChat(),
+  );
+}
 
 class FlashChat extends StatelessWidget {
   const FlashChat({super.key});

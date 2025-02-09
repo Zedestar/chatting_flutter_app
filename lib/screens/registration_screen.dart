@@ -1,6 +1,8 @@
 import 'package:chatting_app/components/rounded_button.dart';
 import 'package:chatting_app/components/rounded_text_field.dart';
+import 'package:chatting_app/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -12,6 +14,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,21 +40,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             RoundedTextField(
               hintTExt: "Enter your email",
-              onChange: (value) {},
+              obscuringText: false,
+              keyboardInputType: TextInputType.emailAddress,
+              onChange: (value) {
+                email = value;
+              },
             ),
             SizedBox(
               height: 8.0,
             ),
             RoundedTextField(
               hintTExt: "Enter your password",
-              onChange: (value) {},
+              keyboardInputType: TextInputType.visiblePassword,
+              obscuringText: true,
+              onChange: (value) {
+                password = value;
+              },
             ),
             SizedBox(
               height: 24.0,
             ),
             RoundedButton(
-              onPress: () {
-                // Navigator.pushNamed(context, RegistrationScreen.id);
+              onPress: () async {
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  print(e);
+                }
               },
               buttonText: "Register",
               buttonColor: Colors.blueAccent,

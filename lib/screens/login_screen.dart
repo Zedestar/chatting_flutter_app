@@ -1,6 +1,9 @@
 import 'package:chatting_app/components/rounded_button.dart';
 import 'package:chatting_app/components/rounded_text_field.dart';
+import 'package:chatting_app/screens/chat_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +14,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late String email;
+  late String password;
+  final _auth = FirebaseAuth.instance;
+  late User signInUser;
+
+  void LoggingInTheUser() async {
+    try {
+      final userIn = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (userIn != null) {
+        signInUser = userIn.user!;
+        Navigator.pushNamed(
+          context,
+          ChatScreen.id,
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,21 +59,29 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             RoundedTextField(
               hintTExt: "Enter your email",
-              onChange: (value) {},
+              onChange: (value) {
+                email = value;
+              },
+              obscuringText: false,
+              keyboardInputType: TextInputType.emailAddress,
             ),
             SizedBox(
               height: 8.0,
             ),
             RoundedTextField(
               hintTExt: "Enter your password",
-              onChange: (value) {},
+              onChange: (value) {
+                password = value;
+              },
+              obscuringText: true,
+              keyboardInputType: TextInputType.visiblePassword,
             ),
             SizedBox(
               height: 24.0,
             ),
             RoundedButton(
               onPress: () {
-                // Navigator.pushNamed(context, LoginScreen.id);
+                LoggingInTheUser();
               },
               buttonText: "Login",
               buttonColor: Colors.lightBlueAccent,
