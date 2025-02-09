@@ -19,14 +19,20 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   final _auth = FirebaseAuth.instance;
   late User signInUser;
-  bool isLoading = true;
+  bool isLoading = false;
 
   void LoggingInTheUser() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       final userIn = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      setState(() {
+        isLoading = false;
+      });
       if (userIn != null) {
         signInUser = userIn.user!;
         Navigator.pushNamed(
@@ -35,6 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }
     } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       print(e);
     }
   }
