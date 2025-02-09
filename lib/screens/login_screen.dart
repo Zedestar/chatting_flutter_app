@@ -1,5 +1,6 @@
 import 'package:chatting_app/components/rounded_button.dart';
 import 'package:chatting_app/components/rounded_text_field.dart';
+import 'package:chatting_app/components/spinkit.dart';
 import 'package:chatting_app/screens/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   final _auth = FirebaseAuth.instance;
   late User signInUser;
+  bool isLoading = true;
 
   void LoggingInTheUser() async {
     try {
@@ -79,13 +81,15 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 24.0,
             ),
-            RoundedButton(
-              onPress: () {
-                LoggingInTheUser();
-              },
-              buttonText: "Login",
-              buttonColor: Colors.lightBlueAccent,
-            ),
+            isLoading
+                ? spinkitFadingCirclee
+                : RoundedButton(
+                    onPress: () {
+                      LoggingInTheUser();
+                    },
+                    buttonText: "Login",
+                    buttonColor: Colors.lightBlueAccent,
+                  ),
           ],
         ),
       ),
