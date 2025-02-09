@@ -36,14 +36,22 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void getMessages() async {
-    try {
-      final messageCollection = await _firestore.collection('messages').get();
-      for (var mesage in messageCollection.docs) {
-        print(mesage.data());
+  // void getMessages() async {
+  //   try {
+  //     final messageCollection = await _firestore.collection('messages').get();
+  //     for (var mesage in messageCollection.docs) {
+  //       print(mesage.data());
+  //     }
+  //   } catch (e) {
+  //     print("There was an error $e");
+  //   }
+  // }
+
+  void messagesStream() async {
+    await for (var snapShot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapShot.docs) {
+        print(message.data());
       }
-    } catch (e) {
-      print("There was an error $e");
     }
   }
 
@@ -64,7 +72,8 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 // _auth.signOut();
                 // Navigator.pop(context);
-                getMessages();
+                // getMessages();
+                messagesStream();
               }),
         ],
         title: Text('⚡️Chat'),
