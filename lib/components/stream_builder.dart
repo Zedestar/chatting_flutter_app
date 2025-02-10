@@ -20,19 +20,23 @@ class BuilderMessages extends StatelessWidget {
         if (!snapshot.hasData) {
           return Text("There is no data available");
         }
-        final messages = snapshot.data!.docs;
+        final messages = snapshot.data!.docs.reversed;
         List<MessageBuble> messagesWidget = [];
         for (var message in messages) {
           final messageData = message.data() as Map<String, dynamic>;
           final String sender = messageData['sender'];
           final String content = messageData['content'];
-          messagesWidget.add(MessageBuble(
-            content: content,
-            sender: sender,
-          ));
+          messagesWidget.add(
+            MessageBuble(
+              content: content,
+              sender: sender,
+              loggedInUser: currentUser,
+            ),
+          );
         }
         return Expanded(
           child: ListView(
+            reverse: false,
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             children: messagesWidget,
           ),
