@@ -1,3 +1,4 @@
+import 'package:chatting_app/components/message_bubble.dart';
 import 'package:chatting_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chatting_app/constants.dart';
@@ -95,14 +96,20 @@ class _ChatScreenState extends State<ChatScreen> {
                     return Text("There is no data available");
                   }
                   final messages = snapshot.data!.docs;
-                  List<Text> messagesWidget = [];
+                  List<MessageBuble> messagesWidget = [];
                   for (var message in messages) {
                     final messageData = message.data() as Map<String, dynamic>;
                     final String sender = messageData['sender'];
                     final String content = messageData['content'];
-                    //
+                    // final Text messageContent = Text(
+                    //   '$content from $sender',
+                    //   style: TextStyle(fontSize: 50),
+                    // );
 
-                    messagesWidget.add(messageContent);
+                    messagesWidget.add(MessageBuble(
+                      content: content,
+                      sender: sender,
+                    ));
                   }
                   return Expanded(
                     child: ListView(

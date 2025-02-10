@@ -7,9 +7,26 @@ class MessageBuble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '$content from $sender',
-      style: TextStyle(fontSize: 50.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      child: Material(
+        elevation: 10.0,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+        color: Colors.lightBlueAccent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+          child: Text(
+            '$content from $sender',
+            style: TextStyle(
+              fontSize: 15.0,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
