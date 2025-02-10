@@ -11,21 +11,31 @@ class MessageBuble extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
-      child: Material(
-        elevation: 10.0,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
-        color: Colors.lightBlueAccent,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          child: Text(
-            '$content from $sender',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            sender,
             style: TextStyle(
-              fontSize: 15.0,
+              color: Colors.black54,
+              fontSize: 12.4,
             ),
           ),
-        ),
+          Material(
+            elevation: 10.0,
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+            color: Colors.lightBlueAccent,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: Text(
+                '$content',
+                style: TextStyle(fontSize: 15.0, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

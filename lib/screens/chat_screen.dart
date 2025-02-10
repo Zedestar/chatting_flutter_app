@@ -1,4 +1,5 @@
 import 'package:chatting_app/components/message_bubble.dart';
+import 'package:chatting_app/components/stream_builder.dart';
 import 'package:chatting_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chatting_app/constants.dart';
@@ -19,6 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
   late User loggedUser;
   late String message;
+  Controller
 
   void getCurrentUser() {
     try {
@@ -37,24 +39,13 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // void getMessages() async {
-  //   try {
-  //     final messageCollection = await _firestore.collection('messages').get();
-  //     for (var mesage in messageCollection.docs) {
-  //       print(mesage.data());
+  // void messagesStream() async {
+  //   await for (var snapShot in _firestore.collection('messages').snapshots()) {
+  //     for (var message in snapShot.docs) {
+  //       print(message.data());
   //     }
-  //   } catch (e) {
-  //     print("There was an error $e");
   //   }
   // }
-
-  void messagesStream() async {
-    await for (var snapShot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapShot.docs) {
-        print(message.data());
-      }
-    }
-  }
 
   @override
   void initState() {
@@ -71,10 +62,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                // _auth.signOut();
-                // Navigator.pop(context);
-                // getMessages();
-                messagesStream();
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -86,39 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection("messages").snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text("There is an error occured");
-                  }
-                  if (!snapshot.hasData) {
-                    return Text("There is no data available");
-                  }
-                  final messages = snapshot.data!.docs;
-                  List<MessageBuble> messagesWidget = [];
-                  for (var message in messages) {
-                    final messageData = message.data() as Map<String, dynamic>;
-                    final String sender = messageData['sender'];
-                    final String content = messageData['content'];
-                    // final Text messageContent = Text(
-                    //   '$content from $sender',
-                    //   style: TextStyle(fontSize: 50),
-                    // );
-
-                    messagesWidget.add(MessageBuble(
-                      content: content,
-                      sender: sender,
-                    ));
-                  }
-                  return Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 10.0),
-                      children: messagesWidget,
-                    ),
-                  );
-                }),
+            BuilderMessages(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
