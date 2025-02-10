@@ -100,11 +100,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     final messageData = message.data() as Map<String, dynamic>;
                     final String sender = messageData['sender'];
                     final String content = messageData['content'];
-                    final Text messageContent = Text('$content from $sender');
+                    //
+
                     messagesWidget.add(messageContent);
                   }
-                  return Column(
-                    children: messagesWidget,
+                  return Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 10.0),
+                      children: messagesWidget,
+                    ),
                   );
                 }),
             Container(
