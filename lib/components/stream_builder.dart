@@ -7,12 +7,16 @@ class BuilderMessages extends StatelessWidget {
   BuilderMessages({super.key, required this.currentUser});
 
   final _firestore = FirebaseFirestore.instance;
+  final ScrollController _scrollController = ScrollController();
   final User currentUser;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection("messages").snapshots(),
+      stream: _firestore
+          .collection("messages")
+          .orderBy('timestamp', descending: false)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("There is an error occured");
@@ -36,7 +40,8 @@ class BuilderMessages extends StatelessWidget {
         }
         return Expanded(
           child: ListView(
-            reverse: false,
+            controller: _scrollController,
+            reverse: true,
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             children: messagesWidget,
           ),
