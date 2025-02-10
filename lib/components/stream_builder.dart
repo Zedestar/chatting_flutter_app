@@ -1,11 +1,13 @@
 import 'package:chatting_app/components/message_bubble.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BuilderMessages extends StatelessWidget {
-  BuilderMessages({super.key});
+  BuilderMessages({super.key, required this.currentUser});
 
   final _firestore = FirebaseFirestore.instance;
+  final User currentUser;
 
   @override
   Widget build(BuildContext context) {

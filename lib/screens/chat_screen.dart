@@ -20,7 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
   late User loggedUser;
   late String message;
-  Controller
+  TextEditingController textEditingController = TextEditingController();
 
   void getCurrentUser() {
     try {
@@ -75,7 +75,9 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            BuilderMessages(),
+            BuilderMessages(
+              currentUser: loggedUser,
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -83,6 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: textEditingController,
                       onChanged: (value) {
                         message = value;
                       },
@@ -98,7 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           'sender': loggedUser.email,
                           'content': message,
                         });
-                        message = '';
+                        textEditingController.clear();
                       }
                     },
                     child: Text(
